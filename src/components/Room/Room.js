@@ -1,83 +1,63 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import LocalHotelIcon from '@material-ui/icons/LocalHotel';
-import WcIcon from '@material-ui/icons/Wc';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import { useHistory } from 'react-router-dom';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Avatar,
+  IconButton,
+  Button,
+  Typography
+} from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
+import { red } from '@mui/material/colors';
 
-export default function Room({room}){
-  const classes = useStyles();
-  const history = useHistory()
-    const handleBook = (bedType) => {
-        history.push(`/book/${bedType}`);
-    }
+import LocalHotelIcon from '@mui/icons-material/LocalHotel';
+import WcIcon from '@mui/icons-material/Wc';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+
+import { useNavigate } from 'react-router-dom';
+
+export default function Room({ room }) {
+  const navigate = useNavigate();
+
+  const handleBook = (bedType) => {
+    navigate(`/book/${bedType}`);
+  };
+
   return (
-    <Card className={classes.root}>
+    <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label={`${room.bedType} room avatar`} sx={{ bgcolor: red[500] }}>
             {room.avatar}
           </Avatar>
         }
         title={room.title}
       />
-
       <CardMedia
-        className={classes.media}
+        sx={{ height: 0, paddingTop: '56.25%' }}
         image={room.imgUrl}
-        title="Paella dish"
+        title={`${room.title} image`}
       />
-      <img src={`/images/${room.bedType}.png`} alt=""/>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="text.secondary" component="p">
           {room.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <LocalHotelIcon />: {room.bed} 
+        <IconButton aria-label="Number of beds">
+          <LocalHotelIcon /> {room.bed}
         </IconButton>
-        <IconButton aria-label="share">
-          <WcIcon />: {room.capacity} 
+        <IconButton aria-label="Room capacity">
+          <WcIcon /> {room.capacity}
         </IconButton>
-        <IconButton aria-label="price">
-          <AttachMoneyIcon />: {room.price} 
+        <IconButton aria-label="Room price">
+          <AttachMoneyIcon /> {room.price}
         </IconButton>
         <Button onClick={() => handleBook(room.bedType)} variant="contained" color="primary">
-            Book
+          Book
         </Button>
       </CardActions>
     </Card>
