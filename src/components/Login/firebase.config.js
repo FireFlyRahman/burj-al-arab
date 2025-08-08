@@ -1,5 +1,5 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDUWCBDdXq0pko-F4GzgU-xnw-Kswi127E",
+  apiKey: "gtignr",
   authDomain: "burj-al-arab--1.firebaseapp.com",
   projectId: "burj-al-arab--1",
   storageBucket: "burj-al-arab--1.firebasestorage.app",
